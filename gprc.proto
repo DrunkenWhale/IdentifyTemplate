@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "/grpc";
+option java_package = "com.thyme.grpc";
+package grpc;
+
+message JoinRoomRequest{
+  int64 roomID = 1;
+  int64 uuid = 2;
+}
+
+message JoinRoomResponse{
+  bool status = 1;
+  string roomName = 2;
+  string roomWebsocketURL = 3;
+  repeated int64 userList = 4;
+}
+
+message CreateRoomRequest{
+  repeated int64 userList = 1;
+  string roomName = 2;
+}
+
+message CreateRoomResponse{
+  bool status = 1;
+  string roomName = 2;
+  string roomWebsocketURL = 3;
+  repeated int64 userList = 4;
+}
+
+service Chat{
+  rpc JoinRoom(JoinRoomRequest) returns (JoinRoomResponse){};
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse){};
+}
